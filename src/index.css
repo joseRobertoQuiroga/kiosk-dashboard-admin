@@ -1,0 +1,175 @@
+/* AGREGAR AL FINAL DE TU ARCHIVO src/index.css */
+
+/* ═══════════════════════════════════════════════════════════════
+   🖨️ ESTILOS PARA IMPRESIÓN
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+  /* Ocultar elementos innecesarios */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Mostrar solo el contenido del reporte activo */
+  .print\:block,
+  .print\:block * {
+    visibility: visible;
+  }
+  
+  /* Configuración de página */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+  
+  /* Reset de márgenes */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ocultar elementos con print:hidden */
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  /* Forzar display block para print:block */
+  .hidden.print\:block {
+    display: block !important;
+  }
+  
+  /* Evitar saltos de página en elementos importantes */
+  .print\:break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  /* Remover sombras y efectos */
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  
+  /* Ajustar colores para impresión */
+  .print\:bg-white {
+    background-color: white !important;
+  }
+  
+  .print\:text-gray-800 {
+    color: #1f2937 !important;
+  }
+  
+  .print\:text-gray-600 {
+    color: #4b5563 !important;
+  }
+  
+  /* Bordes para impresión */
+  .print\:border {
+    border: 1px solid #e5e7eb !important;
+  }
+  
+  .print\:border-2 {
+    border-width: 2px !important;
+  }
+  
+  .print\:border-b-2 {
+    border-bottom-width: 2px !important;
+  }
+  
+  .print\:border-blue-500 {
+    border-color: #3b82f6 !important;
+  }
+  
+  .print\:border-green-500 {
+    border-color: #22c55e !important;
+  }
+  
+  .print\:border-purple-500 {
+    border-color: #a855f7 !important;
+  }
+  
+  .print\:border-gray-200 {
+    border-color: #e5e7eb !important;
+  }
+  
+  .print\:border-gray-300 {
+    border-color: #d1d5db !important;
+  }
+  
+  /* Backgrounds para impresión */
+  .print\:bg-blue-100 {
+    background-color: #dbeafe !important;
+  }
+  
+  .print\:bg-green-100 {
+    background-color: #dcfce7 !important;
+  }
+  
+  .print\:bg-purple-100 {
+    background-color: #f3e8ff !important;
+  }
+  
+  /* Text colors para impresión */
+  .print\:text-blue-600 {
+    color: #2563eb !important;
+  }
+  
+  .print\:text-green-600 {
+    color: #16a34a !important;
+  }
+  
+  .print\:text-purple-600 {
+    color: #9333ea !important;
+  }
+  
+  /* Grid para impresión */
+  .print\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+  
+  .print\:gap-2 {
+    gap: 0.5rem !important;
+  }
+  
+  .print\:gap-4 {
+    gap: 1rem !important;
+  }
+  
+  .print\:space-y-4 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  /* Optimizar tablas para impresión */
+  table {
+    page-break-inside: auto;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  tfoot {
+    display: table-footer-group;
+  }
+  
+  /* Asegurar que las barras de progreso no se impriman */
+  .print\:hidden {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Ajustar tamaños de fuente para impresión */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  /* Evitar que imágenes se corten */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+}

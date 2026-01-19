@@ -1,0 +1,52 @@
+# ═══════════════════════════════════════════════════════════════
+# 🚫 DOCKERIGNORE PARA DASHBOARD
+# ═══════════════════════════════════════════════════════════════
+# Archivos y carpetas que NO se copian al contenedor Docker
+# ═══════════════════════════════════════════════════════════════
+
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build
+dist
+dist-ssr
+*.local
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs
+README.md
+docs
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Misc
+.cache
+coverage
