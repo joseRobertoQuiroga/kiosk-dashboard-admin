@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════
-# 🎨 DOCKERFILE PARA DASHBOARD REACT + VITE - KIOSKO SYSTEM
+# 🎯 DOCKERFILE DASHBOARD - CON VARIABLES DE ENTORNO DINÁMICAS
 # ═══════════════════════════════════════════════════════════════
 
 # Etapa 1: Build
@@ -7,34 +7,33 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copiar archivos de dependencias
-COPY package*.json ./
+# ✅ Recibir la URL de la API como argumento de build
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 
-# Instalar dependencias
+# Copiar dependencias
+COPY package*.json ./
 RUN npm install
 
-# Copiar código fuente
+# Copiar código
 COPY . .
 
-# Modificar tsconfig para permitir variables no usadas durante build
+# ✅ Deshabilitar reglas estrictas de TypeScript
 RUN sed -i 's/"noUnusedLocals": true/"noUnusedLocals": false/g' tsconfig.app.json || true && \
     sed -i 's/"noUnusedParameters": true/"noUnusedParameters": false/g' tsconfig.app.json || true
 
-# Construir la aplicación para producción
+# ✅ Build con la variable de entorno
 RUN npm run build
 
-# ═══════════════════════════════════════════════════════════════
-# Etapa 2: Production con Nginx
+# Etapa 2: Production
 FROM nginx:alpine AS production
 
-# Copiar archivos compilados desde el builder
+# Copiar archivos estáticos
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copiar configuración personalizada de Nginx
+# Copiar configuración de nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Exponer puerto
 EXPOSE 80
 
-# Comando de inicio
 CMD ["nginx", "-g", "daemon off;"]
