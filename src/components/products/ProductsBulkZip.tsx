@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Upload, Download, FileArchive, AlertCircle, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import { bulkCreateProductosZip } from '../../service/api';
 
+export const API_BASE_URL =
+  import.meta.env.VITE_API_URL ?? 'http://localhost:3000/api';
+
 /**
  * ═══════════════════════════════════════════════════════════════
  * 📦 COMPONENTE: ProductsBulkZip
@@ -39,7 +42,7 @@ const ProductsBulkZip: React.FC = () => {
    */
   const downloadTemplate = () => {
     console.log('📥 Descargando plantilla Excel...');
-    window.open('http://192.168.0.78:3000/api/productos/template', '_blank');
+    window.open(`${API_BASE_URL}/productos/template`, '_blank');
   };
 
   /**

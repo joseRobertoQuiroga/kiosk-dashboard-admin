@@ -94,7 +94,7 @@ const LicensesViewer: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const API_BASE_URL = 'http://172.20.20.70:3000/api';
+   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
     
     // 1. Obtener todas las licencias
     const licensesResponse = await fetch(`${API_BASE_URL}/licenses`);
@@ -195,7 +195,7 @@ const LicensesViewer: React.FC = () => {
     try {
       setReactivating(licenseId);
 
-      const API_BASE_URL = 'http://192.168.0.78:3000/api';
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
       
       // Desbloquear dispositivo si está en blacklist
       const response = await fetch(

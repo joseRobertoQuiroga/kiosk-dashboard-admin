@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Package, Upload, Cloud,FileArchive } from 'lucide-react';
-import ProductsBulkExcel from './productsBulkExcel';
-import ProductsBulkApi from './ProductsBulkApi';
+import { Package, FileArchive } from 'lucide-react';
+//import ProductsBulkExcel from './productsBulkExcel';
+//import ProductsBulkApi from './ProductsBulkApi';
 import ProductsBulkZip from './ProductsBulkZip';
 import ProductsManager from './productsManual';
 
-type Tab = 'manual' | 'excel' | 'api'| 'Zip';
+type Tab = 'manual' | 'Zip';
 
 const ProductsTabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('manual');
@@ -16,15 +16,12 @@ const ProductsTabs: React.FC = () => {
       <div className="bg-white rounded-xl p-2 shadow flex gap-2">
         <TabButton icon={<Package />} label="Manual" active={activeTab === 'manual'} onClick={() => setActiveTab('manual')} />
         <TabButton icon={<FileArchive />} label="ZIP (con imágenes)" active={activeTab === 'Zip'} onClick={() => setActiveTab('Zip')} />
-        <TabButton icon={<Upload />} label="Excel Masivo" active={activeTab === 'excel'} onClick={() => setActiveTab('excel')} />
-        <TabButton icon={<Cloud />} label="API Masivo" active={activeTab === 'api'} onClick={() => setActiveTab('api')} />
       </div>
 
       {/* CONTENT */}
       {activeTab === 'manual' && <ProductsManager />}
       {activeTab === 'Zip' && <ProductsBulkZip />} 
-      {activeTab === 'excel' && <ProductsBulkExcel />}
-      {activeTab === 'api' && <ProductsBulkApi />}
+      
     </div>
   );
 };
@@ -42,3 +39,11 @@ const TabButton = ({ icon, label, active, onClick }: any) => (
 );
 
 export default ProductsTabs;
+
+
+//  <TabButton icon={<Cloud />} label="API Masivo" active={activeTab === 'api'} onClick={() => setActiveTab('api')} />
+//  <TabButton icon={<Upload />} label="Excel Masivo" active={activeTab === 'excel'} onClick={() => setActiveTab('excel')} />
+//      {activeTab === 'excel' && <ProductsBulkExcel />}
+//      {activeTab === 'api' && <ProductsBulkApi />}
+
+

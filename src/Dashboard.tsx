@@ -4,8 +4,6 @@ import {
   Monitor,
   TrendingUp,
   Activity,
-  Wifi,
-  WifiOff,
   Settings,
   AlertCircle,
   CheckCircle,
@@ -33,7 +31,7 @@ import {
 import ReporteTopProductos from './components/reports/ReporteTopProductos';
 import ReporteConsultasKiosco from './components/reports/ReporteConsultasKiosco';
 import ReporteMixto from './components/reports/ReporteMixto';
-import ConfigDisplay from './components/config/ConfigDisplay';
+//import ConfigDisplay from './components/config/ConfigDisplay';
 import ProductsTabs from './components/products/producTabs';
 import LicensesViewer  from '../src/components/license/license_Wierwer';
 type TabType = 'overview' | 'kiosks' |'reports' | 'products'| 'video' | 'config'| 'licenses';
@@ -50,10 +48,10 @@ const [productosConNombres, setProductosConNombres] = useState<any[]>([]);
   const [rendimientoKioscos, setRendimientoKioscos] = useState<any>(null); // AGREGAR
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [apiConfig, setApiConfig] = useState({
-    url: 'http://172.20.20.70:3000/api',
-    status: 'checking' as 'checking' | 'connected' | 'disconnected',
-  });
+  //const [apiConfig, setApiConfig] = useState({
+    //url: 'http://172.20.20.70:3000/api',
+    //status: 'checking' as 'checking' | 'connected' | 'disconnected',
+  //});
   const [showCreateModal, setShowCreateModal] = useState(false);
 const [editingKiosco, setEditingKiosco] = useState<Kiosco | null>(null);
 const [formSubmitting, setFormSubmitting] = useState(false);
@@ -100,13 +98,13 @@ const loadAllData = async () => {
       setProductosConNombres(productosConNombresTemp);
     }
 
-    setApiConfig((prev) => ({ ...prev, status: 'connected' }));
+    //setApiConfig((prev) => ({ ...prev, status: 'connected' }));
     
     console.log('✅ Datos cargados');
   } catch (err) {
     console.error('Error cargando datos:', err);
     setError('Error conectando con la API');
-    setApiConfig((prev) => ({ ...prev, status: 'disconnected' }));
+    //setApiConfig((prev) => ({ ...prev, status: 'disconnected' }));
   } finally {
     setLoading(false);
   }
@@ -239,8 +237,8 @@ const handleSubmitKiosco = async (e: React.FormEvent) => {
           </h1>
           <p className="text-sm text-gray-500 mt-1">Panel de Control</p>
 
-          {/* API Status */}
-          <div className="mt-4 flex items-center space-x-2">
+        {/* API Status */}
+       {/*   <div className="mt-4 flex items-center space-x-2">
             {apiConfig.status === 'connected' ? (
               <>
                 <Wifi className="text-green-500" size={16} />
@@ -252,7 +250,7 @@ const handleSubmitKiosco = async (e: React.FormEvent) => {
                 <span className="text-xs text-red-600 font-medium">API Desconectada</span>
               </>
             )}
-          </div>
+          </div>*/}
         </div>
 
         <nav className="p-4">
@@ -351,7 +349,7 @@ const handleSubmitKiosco = async (e: React.FormEvent) => {
   {activeTab === 'kiosks' && 'Gestión de Kioscos'}
   {activeTab === 'reports' && 'Informes y Reportes'}
   {activeTab === 'video' && 'Video Publicitario'}
-  {activeTab === 'config' && 'Configuración'}
+  {/*activeTab === 'config' && 'Configuración'*/}
   {activeTab === 'products' && 'Gestión de Productos'}
   {activeTab === 'licenses' && <LicensesViewer />}
 
@@ -1086,7 +1084,7 @@ const handleSubmitKiosco = async (e: React.FormEvent) => {
           )}
 
           {/* Config Tab */}
-{activeTab === 'config' && <ConfigDisplay />}
+{/*activeTab === 'config' && <ConfigDisplay />*/}
         </div>
       </div>
     </div>
