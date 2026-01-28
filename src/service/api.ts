@@ -480,7 +480,7 @@ export const createProducto = async (
   formData.append('precio', data.precio.toString());
   formData.append('detalles', data.detalles);
   formData.append('categoria', data.categoria);
-  
+formData.append('promocion', data.promocion ? String(data.promocion) : '');  
   if (imagen) {
     console.log('📁 Agregando imagen:', imagen.name);
     console.log('Tamaño:', (imagen.size / 1024).toFixed(2), 'KB');
@@ -518,7 +518,9 @@ export const updateProducto = async (
   if (data.precio) formData.append('precio', data.precio.toString());
   if (data.detalles) formData.append('detalles', data.detalles);
   if (data.categoria) formData.append('categoria', data.categoria);
-  
+  if (data.promocion !== undefined) {
+ formData.append('promocion', data.promocion ? String(data.promocion) : '');
+}
   if (imagen) {
     console.log('📁 Agregando nueva imagen:', imagen.name);
     formData.append('imagen', imagen);
