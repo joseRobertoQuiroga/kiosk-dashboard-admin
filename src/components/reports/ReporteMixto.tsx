@@ -15,7 +15,7 @@ const ReporteMixto: React.FC = () => {
   const [totalConsultas, setTotalConsultas] = useState(0);
   const [rawProductos, setRawProductos] = useState<any[]>([]);
   const [rawKioscos, setRawKioscos] = useState<any[]>([]);
-  
+
   const chartProductosRef = useRef<any>(null);
   const chartKioscosRef = useRef<any>(null);
 
@@ -93,50 +93,50 @@ const ReporteMixto: React.FC = () => {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
-    
+
     // Título principal
     doc.setFontSize(18);
     doc.setTextColor(147, 51, 234);
     doc.text('REPORTE COMPARATIVO', pageWidth / 2, 20, { align: 'center' });
-    
+
     // Subtítulo
     doc.setFontSize(12);
     doc.setTextColor(100, 100, 100);
     doc.text('Vista Consolidada de Productos y Kioscos', pageWidth / 2, 28, { align: 'center' });
-    
+
     // Fecha
     doc.setFontSize(9);
     doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, pageWidth / 2, 35, { align: 'center' });
-    
+
     // Línea separadora
     doc.setDrawColor(147, 51, 234);
     doc.setLineWidth(0.5);
     doc.line(14, 38, pageWidth - 14, 38);
-    
+
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // SECCIÓN 1: ANÁLISIS RÁPIDO
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text('ANALISIS RAPIDO', 14, 48);
-    
+
     // Fondo gris para el análisis
     doc.setFillColor(245, 245, 245);
     doc.rect(14, 52, pageWidth - 28, 20, 'F');
-    
+
     doc.setFontSize(10);
     doc.setTextColor(60, 60, 60);
     doc.text(`Producto mas consultado: ${topProducto}`, 18, 59);
     doc.text(`Kiosco mas activo: ${topKiosco}`, 18, 65);
     doc.text(`Total consultas (Top 5): ${totalConsultas.toLocaleString()}`, 18, 71);
-    
+
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // SECCIÓN 2: TOP 5 PRODUCTOS
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text('TOP 5 PRODUCTOS CONSULTADOS', 14, 84);
-    
+
     const productosTableData = rawProductos.map((p, i) => [
       `${i + 1}`,
       p.nombre,
@@ -167,16 +167,16 @@ const ReporteMixto: React.FC = () => {
         fillColor: [245, 245, 245] as any,
       },
     });
-    
+
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // SECCIÓN 3: CONSULTAS POR KIOSCO
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     const startY = (doc as any).lastAutoTable.finalY + 15;
-    
+
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text('CONSULTAS POR KIOSCO', 14, startY);
-    
+
     const kioscosTableData = rawKioscos.map((k, i) => [
       `${i + 1}`,
       k.nombre,
@@ -209,19 +209,19 @@ const ReporteMixto: React.FC = () => {
         fillColor: [245, 245, 245] as any,
       },
     });
-    
+
     // Footer
     const finalY = (doc as any).lastAutoTable.finalY || startY + 4;
-    
+
     // Línea separadora
     doc.setDrawColor(200, 200, 200);
     doc.setLineWidth(0.3);
     doc.line(14, finalY + 10, pageWidth - 14, finalY + 10);
-    
+
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text('KioskAdmin - Sistema de Gestion de Kioscos', pageWidth / 2, finalY + 15, { align: 'center' });
-    
+
     // Guardar
     doc.save(`reporte-comparativo-${new Date().toISOString().split('T')[0]}.pdf`);
   };
@@ -264,9 +264,9 @@ const ReporteMixto: React.FC = () => {
     <div className="space-y-6 print:space-y-4">
       {/* Header */}
       <div className="bg-linear-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-lg print:bg-white print:text-gray-800 print:border-2 print:border-purple-500">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-white/20 rounded-lg print:bg-purple-100">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-3 w-full md:w-auto">
+            <div className="p-3 bg-white/20 rounded-lg print:bg-purple-100 shrink-0">
               <BarChart3 size={24} className="print:text-purple-600" />
             </div>
             <div>
@@ -276,7 +276,7 @@ const ReporteMixto: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-2 print:hidden">
+          <div className="flex items-center space-x-2 print:hidden w-full md:w-auto justify-end">
             <button
               onClick={handlePrint}
               className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition"

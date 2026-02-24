@@ -13,15 +13,15 @@ const ProductsTabs: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* SUB TABS */}
-      <div className="bg-white rounded-xl p-2 shadow flex gap-2">
+      <div className="bg-white rounded-xl p-2 shadow flex flex-col sm:flex-row gap-2">
         <TabButton icon={<Package />} label="Manual" active={activeTab === 'manual'} onClick={() => setActiveTab('manual')} />
         <TabButton icon={<FileArchive />} label="ZIP (con imágenes)" active={activeTab === 'Zip'} onClick={() => setActiveTab('Zip')} />
       </div>
 
       {/* CONTENT */}
       {activeTab === 'manual' && <ProductsManager />}
-      {activeTab === 'Zip' && <ProductsBulkZip />} 
-      
+      {activeTab === 'Zip' && <ProductsBulkZip />}
+
     </div>
   );
 };

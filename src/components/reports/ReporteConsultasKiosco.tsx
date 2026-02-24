@@ -47,24 +47,24 @@ const ReporteConsultasKiosco: React.FC = () => {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
-    
+
     // Título
     doc.setFontSize(18);
     doc.setTextColor(34, 197, 94);
     doc.text('Reporte: Consultas por Kiosco', pageWidth / 2, 20, { align: 'center' });
-    
+
     // Fecha
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, pageWidth / 2, 28, { align: 'center' });
-    
+
     // Resumen
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
     doc.text(`Total de Kioscos: ${kioscos.length}`, 14, 40);
     doc.text(`Total Consultas: ${resumen?.total_consultas_sistema.toLocaleString() || 0}`, 14, 47);
     doc.text(`Promedio por Kiosco: ${parseFloat(resumen?.promedio_consultas_por_kiosco || 0).toFixed(0)}`, 14, 54);
-    
+
     // Tabla
     const tableData = kioscos.map(k => [
       k.nombre,
@@ -94,13 +94,13 @@ const ReporteConsultasKiosco: React.FC = () => {
         fillColor: [245, 245, 245] as any, // ✅ FIX
       },
     });
-    
+
     // Footer
     const finalY = (doc as any).lastAutoTable.finalY || 62;
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text('KioskAdmin - Sistema de Gestión de Kioscos', pageWidth / 2, finalY + 15, { align: 'center' });
-    
+
     // Guardar
     doc.save(`reporte-kioscos-${new Date().toISOString().split('T')[0]}.pdf`);
   };
@@ -124,9 +124,9 @@ const ReporteConsultasKiosco: React.FC = () => {
     <div className="bg-white rounded-xl shadow-lg overflow-hidden print:shadow-none">
       {/* Header */}
       <div className="bg-linear-to-r from-green-500 to-green-600 p-6 text-white print:bg-white print:text-gray-800 print:border-b-2 print:border-green-500">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-white/20 rounded-lg print:bg-green-100">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-center space-x-3 w-full md:w-auto">
+            <div className="p-3 bg-white/20 rounded-lg print:bg-green-100 shrink-0">
               <Monitor size={24} className="print:text-green-600" />
             </div>
             <div>
@@ -136,7 +136,7 @@ const ReporteConsultasKiosco: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-2 print:hidden">
+          <div className="flex items-center space-x-2 print:hidden w-full md:w-auto justify-end">
             <button
               onClick={handlePrint}
               className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition"
@@ -246,25 +246,23 @@ const ReporteConsultasKiosco: React.FC = () => {
                 <td className="py-4 px-6">
                   <div className="space-y-1">
                     <div className="flex items-center justify-end space-x-2">
-                      <span className={`text-sm font-bold ${
-                        parseFloat(kiosco.tasa_exito) >= 90
+                      <span className={`text-sm font-bold ${parseFloat(kiosco.tasa_exito) >= 90
                           ? 'text-green-600'
                           : parseFloat(kiosco.tasa_exito) >= 70
-                          ? 'text-yellow-600'
-                          : 'text-red-600'
-                      }`}>
+                            ? 'text-yellow-600'
+                            : 'text-red-600'
+                        }`}>
                         {kiosco.tasa_exito}
                       </span>
                     </div>
                     <div className="w-24 bg-gray-200 rounded-full h-2 print:hidden">
                       <div
-                        className={`h-2 rounded-full ${
-                          parseFloat(kiosco.tasa_exito) >= 90
+                        className={`h-2 rounded-full ${parseFloat(kiosco.tasa_exito) >= 90
                             ? 'bg-green-500'
                             : parseFloat(kiosco.tasa_exito) >= 70
-                            ? 'bg-yellow-500'
-                            : 'bg-red-500'
-                        }`}
+                              ? 'bg-yellow-500'
+                              : 'bg-red-500'
+                          }`}
                         style={{ width: kiosco.tasa_exito }}
                       />
                     </div>
@@ -279,8 +277,8 @@ const ReporteConsultasKiosco: React.FC = () => {
       {/* Resumen Footer */}
       {resumen && (
         <div className="bg-gray-50 p-4 border-t border-gray-200">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2">
+          <div className="flex flex-col md:flex-row items-center justify-between text-sm gap-2">
+            <div className="flex items-center space-x-2 w-full md:w-auto justify-center md:justify-start">
               <Activity className="text-gray-600" size={16} />
               <span className="text-gray-600 font-medium">
                 Promedio por kiosco:
@@ -289,7 +287,7 @@ const ReporteConsultasKiosco: React.FC = () => {
                 {parseFloat(resumen.promedio_consultas_por_kiosco).toFixed(0)} consultas
               </span>
             </div>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 w-full md:w-auto text-center md:text-right">
               Generado: {new Date().toLocaleString('es-ES')}
             </span>
           </div>

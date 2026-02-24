@@ -26,7 +26,7 @@ const ReporteTopProductos: React.FC = () => {
     try {
       setLoading(true);
       const stats = await getEstadisticasGenerales();
-      
+
       if (!stats.topProductos || stats.topProductos.length === 0) {
         setProductos([]);
         setTotalConsultas(0);
@@ -64,23 +64,23 @@ const ReporteTopProductos: React.FC = () => {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
-    
+
     // Título
     doc.setFontSize(18);
     doc.setTextColor(59, 130, 246);
     doc.text('Reporte: Top Productos Consultados', pageWidth / 2, 20, { align: 'center' });
-    
+
     // Fecha
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, pageWidth / 2, 28, { align: 'center' });
-    
+
     // Resumen
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
     doc.text(`Total de Productos: ${productos.length}`, 14, 40);
     doc.text(`Total de Consultas: ${totalConsultas.toLocaleString()}`, 14, 47);
-    
+
     // Tabla
     const tableData = productos.map(p => [
       p.posicion.toString(),
@@ -127,27 +127,27 @@ const ReporteTopProductos: React.FC = () => {
             } else {
               doc.setFillColor(205, 127, 50); // Bronce
             }
-            
+
             doc.rect(data.cell.x, data.cell.y, data.cell.width, data.cell.height, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(9);
             doc.text(
-              data.cell.text[0], 
-              data.cell.x + data.cell.width / 2, 
-              data.cell.y + 6, 
+              data.cell.text[0],
+              data.cell.x + data.cell.width / 2,
+              data.cell.y + 6,
               { align: 'center' }
             );
           }
         }
       },
     });
-    
+
     // Footer
     const finalY = (doc as any).lastAutoTable.finalY || 55;
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text('KioskAdmin - Sistema de Gestión de Kioscos', pageWidth / 2, finalY + 15, { align: 'center' });
-    
+
     // Guardar
     doc.save(`reporte-top-productos-${new Date().toISOString().split('T')[0]}.pdf`);
   };
@@ -171,9 +171,9 @@ const ReporteTopProductos: React.FC = () => {
     <div className="bg-white rounded-xl shadow-lg overflow-hidden print:shadow-none">
       {/* Header */}
       <div className="bg-linear-to-r from-blue-500 to-blue-600 p-6 text-white print:bg-white print:text-gray-800 print:border-b-2 print:border-blue-500">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-white/20 rounded-lg print:bg-blue-100">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-3 w-full md:w-auto">
+            <div className="p-3 bg-white/20 rounded-lg print:bg-blue-100 shrink-0">
               <TrendingUp size={24} className="print:text-blue-600" />
             </div>
             <div>
@@ -183,7 +183,7 @@ const ReporteTopProductos: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-2 print:hidden">
+          <div className="flex items-center space-x-2 print:hidden w-full md:w-auto justify-end">
             <button
               onClick={handlePrint}
               className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition"
@@ -240,15 +240,14 @@ const ReporteTopProductos: React.FC = () => {
                 {/* Posición */}
                 <td className="py-4 px-6 text-center">
                   <div
-                    className={`inline-flex items-center justify-center w-10 h-10 rounded-full font-bold text-white print:w-8 print:h-8 ${
-                      producto.posicion === 1
+                    className={`inline-flex items-center justify-center w-10 h-10 rounded-full font-bold text-white print:w-8 print:h-8 ${producto.posicion === 1
                         ? 'bg-linear-to-br from-yellow-400 to-yellow-500'
                         : producto.posicion === 2
-                        ? 'bg-linear-to-br from-gray-300 to-gray-400'
-                        : producto.posicion === 3
-                        ? 'bg-linear-to-br from-orange-400 to-orange-500'
-                        : 'bg-linear-to-br from-blue-400 to-blue-500'
-                    }`}
+                          ? 'bg-linear-to-br from-gray-300 to-gray-400'
+                          : producto.posicion === 3
+                            ? 'bg-linear-to-br from-orange-400 to-orange-500'
+                            : 'bg-linear-to-br from-blue-400 to-blue-500'
+                      }`}
                   >
                     {producto.posicion}
                   </div>

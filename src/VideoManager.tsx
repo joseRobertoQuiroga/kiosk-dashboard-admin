@@ -40,15 +40,15 @@ const VideoManager: React.FC = () => {
     try {
       setLoading(true);
       setError(null);  // ✅ Limpiar errores previos
-      
+
       const [videosData, statsData] = await Promise.all([
         getVideos(),
         getVideoStats(),
       ]);
-      
+
       console.log('📹 Videos cargados:', videosData);
       console.log('📊 Stats cargadas:', statsData);
-      
+
       setVideos(videosData);
       setStats(statsData);
     } catch (err: any) {
@@ -197,11 +197,10 @@ const VideoManager: React.FC = () => {
         )}
 
         <div
-          className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
-            puedeSubir
+          className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${puedeSubir
               ? 'border-purple-300 hover:border-purple-500 cursor-pointer bg-purple-50'
               : 'border-gray-300 bg-gray-50 cursor-not-allowed'
-          }`}
+            }`}
           onClick={() => {
             if (puedeSubir && !uploading) {
               fileInputRef.current?.click();
@@ -269,11 +268,10 @@ const VideoManager: React.FC = () => {
                 onDragStart={() => handleDragStart(index)}
                 onDragOver={(e) => handleDragOver(e, index)}
                 onDragEnd={handleDragEnd}
-                className={`flex items-center gap-4 p-4 border rounded-lg transition-all cursor-move ${
-                  draggedIndex === index
+                className={`flex flex-col md:flex-row items-center gap-4 p-4 border rounded-lg transition-all cursor-move ${draggedIndex === index
                     ? 'border-purple-500 bg-purple-50 shadow-lg scale-105'
                     : 'border-gray-200 hover:border-purple-300 hover:shadow-md'
-                }`}
+                  }`}
               >
                 {/* Handle de Drag */}
                 <div className="cursor-grab active:cursor-grabbing">
@@ -291,11 +289,11 @@ const VideoManager: React.FC = () => {
                 </div>
 
                 {/* Info - ✅ CORREGIDO: usar 'titulo' */}
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-gray-800 truncate">
+                <div className="flex-1 w-full md:w-auto text-center md:text-left min-w-0">
+                  <h4 className="font-semibold text-gray-800 truncate px-2 md:px-0">
                     {video.titulo}
                   </h4>
-                  <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                  <div className="flex items-center justify-center md:justify-start gap-4 mt-1 text-sm text-gray-500">
                     <span>{formatFileSize(video.tamanio)}</span>
                     <span>•</span>
                     <span>{new Date(video.fecha_creacion).toLocaleDateString()}</span>
@@ -329,11 +327,10 @@ const VideoManager: React.FC = () => {
 
                   <button
                     onClick={() => handleToggleActive(video)}
-                    className={`p-2 rounded-lg transition ${
-                      video.activo
+                    className={`p-2 rounded-lg transition ${video.activo
                         ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         : 'bg-green-100 text-green-600 hover:bg-green-200'
-                    }`}
+                      }`}
                     title={video.activo ? 'Desactivar' : 'Activar'}
                   >
                     {video.activo ? <EyeOff size={18} /> : <Eye size={18} />}
